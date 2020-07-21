@@ -106,7 +106,7 @@ void CharacterDatabaseConnection::DoPrepareStatements()
     PrepareStatement(CHAR_SEL_CHARACTER_ACTIONS, "SELECT button,action,type,misc FROM character_action WHERE guid = ? ORDER BY button", CONNECTION_ASYNC);
     PrepareStatement(CHAR_SEL_CHARACTER_MAILCOUNT, "SELECT COUNT(id) FROM mail WHERE receiver = ? AND (checked & 1) = 0 AND deliver_time <= ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_SEL_CHARACTER_MAILDATE, "SELECT MIN(deliver_time) FROM mail WHERE receiver = ? AND (checked & 1)=0", CONNECTION_ASYNC);
-    PrepareStatement(CHAR_SEL_CHARACTER_SOCIALLIST, "SELECT friend,flags,note FROM character_social WHERE guid = ? AND EXISTS (SELECT guid FROM characters WHERE guid=character_social.friend) LIMIT 255", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_CHARACTER_SOCIALLIST, "SELECT friend,flags,note FROM character_social WHERE guid = ? AND EXISTS (SELECT guid FROM characters WHERE guid=character_social.friend AND deleteDate IS NULL) LIMIT 255", CONNECTION_ASYNC);
     PrepareStatement(CHAR_SEL_CHARACTER_HOMEBIND, "SELECT map,zone,position_x,position_y,position_z FROM character_homebind WHERE guid = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_SEL_CHARACTER_SPELLCOOLDOWNS, "SELECT spell, item, time, categoryId, categoryEnd FROM character_spell_cooldown WHERE guid = ? AND time > UNIX_TIMESTAMP()", CONNECTION_ASYNC);
     PrepareStatement(CHAR_SEL_CHARACTER_DECLINEDNAMES, "SELECT genitive, dative, accusative, instrumental, prepositional FROM character_declinedname WHERE guid = ?", CONNECTION_ASYNC);
